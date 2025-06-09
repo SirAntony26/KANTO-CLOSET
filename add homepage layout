@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KANTO CLOSET</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #ffffff;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1589927986089-35812388d1d4?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .products {
+      padding: 50px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.03);
+    }
+
+    .product img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .product h3 {
+      padding: 10px;
+    }
+
+    .footer {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    .social a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>KANTO CLOSET</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#contact">Contact</a>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Style that Speaks for You</h1>
+  </section>
+
+  <section id="shop" class="products">
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=800&q=80" alt="Sneakers">
+      <h3>Premium Sneakers</h3>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1531181804082-4f0117c8a2b4?auto=format&fit=crop&w=800&q=80" alt="Dresses">
+      <h3>Designer Dresses</h3>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1593032457869-6f1b9f4fdc1f?auto=format&fit=crop&w=800&q=80" alt="Hoodies">
+      <h3>Streetwear Hoodies</h3>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <p>&copy; 2025 KANTO CLOSET. All rights reserved.</p>
+    <div class="social">
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="mailto:contact@kantocloset.com">Email</a>
+    </div>
+  </footer>
+</body>
+</html>
+add homepage layout
