@@ -1,3 +1,4 @@
+<!-- Start of index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -110,6 +111,20 @@
       margin: 10px 0;
     }
 
+    .mpesa {
+      margin-top: 20px;
+    }
+
+    .mpesa button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
     .footer {
       background: #000;
       color: #fff;
@@ -163,6 +178,10 @@
     <h2>Your Cart</h2>
     <ul id="cart-items" class="cart-items"></ul>
     <p><strong>Total:</strong> $<span id="cart-total">0</span></p>
+
+    <div class="mpesa">
+      <button onclick="payWithMpesa()">Pay with M-Pesa</button>
+    </div>
   </section>
 
   <footer class="footer" id="contact">
@@ -196,6 +215,21 @@
 
       cartTotal.textContent = total.toFixed(2);
     }
+
+    function payWithMpesa() {
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      if (total === 0) {
+        alert('Your cart is empty. Please add items to proceed.');
+        return;
+      }
+
+      const message = `To complete payment of $${total.toFixed(2)}:\n1. Go to your M-Pesa menu\n2. Select Lipa na M-Pesa\n3. Select Buy Goods and Services\n4. Enter Till Number: 3446190\n5. Enter amount: ${total.toFixed(2)}\n6. Enter M-Pesa PIN and confirm.`;
+      alert(message);
+
+      const whatsappMessage = `Hi, I've paid $${total.toFixed(2)} to Till 3446190 for my Kanto Closet order.`;
+      window.open(`https://wa.me/254740113715?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
+    }
   </script>
 </body>
 </html>
+<!-- End of index.html -->
