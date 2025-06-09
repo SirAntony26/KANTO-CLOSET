@@ -2,33 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KANTO CLOSET</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
+    body {
+      font-family: 'Montserrat', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Montserrat', sans-serif;
-    }
-    body {
-      background-color: #fff;
+      background: #fff;
       color: #111;
-      line-height: 1.6;
     }
+
     header {
       background: #000;
       color: #fff;
       padding: 20px;
       text-align: center;
     }
+
     nav a {
       color: #fff;
       margin: 0 15px;
       text-decoration: none;
       font-weight: 600;
     }
+
     .hero {
       background: url('https://images.unsplash.com/photo-1589927986089-35812388d1d4?auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
       height: 80vh;
@@ -38,36 +37,38 @@
       color: #fff;
       text-align: center;
     }
+
     .hero h1 {
       font-size: 3em;
       background: rgba(0, 0, 0, 0.5);
       padding: 20px;
       border-radius: 10px;
     }
+
     .products {
       padding: 50px 20px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 30px;
     }
+
     .product {
       border: 1px solid #ddd;
       border-radius: 10px;
       overflow: hidden;
       background: #fff;
-      transition: transform 0.3s ease;
     }
-    .product:hover {
-      transform: scale(1.03);
-    }
+
     .product img {
       width: 100%;
       height: 300px;
       object-fit: cover;
     }
+
     .product h3, .product button {
       padding: 10px;
     }
+
     .product button {
       width: 90%;
       margin: 0 auto 15px;
@@ -79,49 +80,59 @@
       border-radius: 5px;
       cursor: pointer;
     }
-    .cart, .checkout-form {
-      padding: 40px 20px;
-      background: #f5f5f5;
+
+    .cart, .delivery-form {
+      padding: 30px 20px;
+      background: #f9f9f9;
       border-top: 2px solid #000;
     }
-    .cart-items {
-      list-style: none;
-      padding: 0;
-    }
+
     .cart-items li {
-      margin: 10px 0;
+      margin-bottom: 8px;
     }
-    .footer {
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    .social a {
-      color: #fff;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-    form input, form select {
-      display: block;
-      width: 100%;
+
+    .form-field {
       margin-bottom: 15px;
-      padding: 10px;
+    }
+
+    input, select {
+      padding: 8px;
+      width: 100%;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    form button {
-      background: #000;
-      color: #fff;
+
+    button.checkout {
+      background-color: #4CAF50;
+      color: white;
       padding: 12px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    footer {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .hero h1 {
+        font-size: 2em;
+      }
+
+      .product img {
+        height: 200px;
+      }
     }
   </style>
 </head>
 <body>
+
   <header>
     <h1>KANTO CLOSET</h1>
     <nav>
@@ -143,99 +154,118 @@
       <button onclick="addToCart('Premium Sneakers', 8000)">Add to Cart</button>
     </div>
     <div class="product">
-      <img src="https://images.unsplash.com/photo-1531181804082-4f0117c8a2b4?auto=format&fit=crop&w=800&q=80" alt="Dresses">
+      <img src="https://images.unsplash.com/photo-1531181804082-4f0117c8a2b4?auto=format&fit=crop&w=800&q=80" alt="Dress">
       <h3>Designer Dress - KSh 6500</h3>
       <button onclick="addToCart('Designer Dress', 6500)">Add to Cart</button>
+    </div>
+    <div class="product">
+      <img src="https://images.unsplash.com/photo-1593032457869-6f1b9f4fdc1f?auto=format&fit=crop&w=800&q=80" alt="Hoodie">
+      <h3>Streetwear Hoodie - KSh 5000</h3>
+      <button onclick="addToCart('Streetwear Hoodie', 5000)">Add to Cart</button>
     </div>
   </section>
 
   <section id="cart" class="cart">
     <h2>Your Cart</h2>
     <ul id="cart-items" class="cart-items"></ul>
-    <p><strong>Total:</strong> KSh <span id="cart-total">0</span></p>
-    <button onclick="showCheckoutForm()">Checkout</button>
+    <p><strong>Items Total:</strong> KSh <span id="cart-total">0</span></p>
+    <p><strong>Delivery:</strong> KSh <span id="delivery-cost">0</span></p>
+    <p><strong>Grand Total:</strong> KSh <span id="grand-total">0</span></p>
   </section>
 
-  <section id="checkout" class="checkout-form" style="display:none;">
-    <h2>Checkout</h2>
-    <form onsubmit="handleFormSubmit(event)">
-      <input type="text" id="customerName" placeholder="Your Name" required>
-      <input type="text" id="deliveryAddress" placeholder="Delivery Address" required>
-      <select id="deliveryBase" required>
-        <option value="Muranga Town">Murang'a Town</option>
-        <option value="Maua Town">Maua Town</option>
-      </select>
-      <button type="submit">Buy Now (Pay with M-Pesa)</button>
-    </form>
-    <p id="delivery-cost"></p>
-  </section>
-
-  <footer class="footer" id="contact">
-    <p>&copy; 2025 KANTO CLOSET. All rights reserved.</p>
-    <div class="social">
-      <a href="https://instagram.com" target="_blank">Instagram</a>
-      <a href="mailto:contact@kantocloset.com">Email</a>
+  <section class="delivery-form">
+    <h3>Delivery Details</h3>
+    <div class="form-field">
+      <input type="text" id="customer-name" placeholder="Your Name">
     </div>
+    <div class="form-field">
+      <select id="base-town">
+        <option value="">Select Base Town</option>
+        <option value="Murang'a Town, Kenya">Murang'a Town</option>
+        <option value="Maua Town, Kenya">Maua Town</option>
+        <option value="Nairobi, Kenya">Nairobi</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <input type="text" id="delivery-address" placeholder="Your Delivery Address">
+    </div>
+    <button class="checkout" onclick="calculateDelivery()">Checkout</button>
+    <button class="checkout" onclick="payWithMpesa()">Buy Now via M-Pesa</button>
+  </section>
+
+  <footer id="contact">
+    <p>&copy; 2025 KANTO CLOSET. All rights reserved.</p>
+    <p><a href="https://wa.me/254740113715" style="color:white;">Contact us on WhatsApp</a></p>
   </footer>
 
   <script>
     const cart = [];
 
-    function addToCart(productName, price) {
-      cart.push({ name: productName, price });
+    function addToCart(name, price) {
+      cart.push({ name, price });
       renderCart();
     }
 
     function renderCart() {
-      const cartItems = document.getElementById('cart-items');
-      const cartTotal = document.getElementById('cart-total');
-      cartItems.innerHTML = '';
+      const items = document.getElementById('cart-items');
+      const totalEl = document.getElementById('cart-total');
       let total = 0;
+      items.innerHTML = '';
       cart.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = `${item.name} - KSh ${item.price}`;
-        cartItems.appendChild(li);
         total += item.price;
+        items.innerHTML += `<li>${item.name} - KSh ${item.price}</li>`;
       });
-      cartTotal.textContent = total.toFixed(2);
+      totalEl.textContent = total;
+      updateGrandTotal();
     }
 
-    function showCheckoutForm() {
-      document.getElementById('checkout').style.display = 'block';
-      window.scrollTo({ top: document.getElementById('checkout').offsetTop, behavior: 'smooth' });
+    function updateGrandTotal() {
+      const itemsTotal = parseFloat(document.getElementById('cart-total').textContent);
+      const delivery = parseFloat(document.getElementById('delivery-cost').textContent);
+      document.getElementById('grand-total').textContent = (itemsTotal + delivery).toFixed(0);
     }
 
-    async function handleFormSubmit(event) {
-      event.preventDefault();
-      const name = document.getElementById('customerName').value;
-      const address = document.getElementById('deliveryAddress').value;
-      const baseTown = document.getElementById('deliveryBase').value;
+    function calculateDelivery() {
+      const base = document.getElementById('base-town').value;
+      const address = document.getElementById('delivery-address').value;
+      if (!base || !address) {
+        alert('Please enter all delivery details.');
+        return;
+      }
 
-      const baseLocations = {
-        'Muranga Town': 'Murang'a, Kenya',
-        'Maua Town': 'Maua, Kenya'
-      };
+      const service = new google.maps.DistanceMatrixService();
+      service.getDistanceMatrix({
+        origins: [base],
+        destinations: [address],
+        travelMode: 'DRIVING'
+      }, function(response, status) {
+        if (status === 'OK') {
+          const distanceText = response.rows[0].elements[0].distance.text;
+          const distanceKm = parseFloat(distanceText.replace(/[^\d.]/g, ''));
+          const cost = Math.ceil(distanceKm * 1); // KSh 1 per km
+          document.getElementById('delivery-cost').textContent = cost;
+          updateGrandTotal();
+        } else {
+          alert('Could not calculate delivery distance.');
+        }
+      });
+    }
 
-      const response = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${encodeURIComponent(baseLocations[baseTown])}&destinations=${encodeURIComponent(address)}&key=YOUR_GOOGLE_MAPS_API_KEY`);
-      const data = await response.json();
-      const distanceInMeters = data.rows[0].elements[0].distance.value;
-      const distanceInKm = Math.ceil(distanceInMeters / 1000);
-      const deliveryCost = distanceInKm * 1; // KSh 1 per 1km
+    function payWithMpesa() {
+      const name = document.getElementById('customer-name').value;
+      const address = document.getElementById('delivery-address').value;
+      const total = document.getElementById('grand-total').textContent;
+      if (!name || !address || cart.length === 0) {
+        alert("Fill in name, delivery details, and add items to cart first.");
+        return;
+      }
 
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      const grandTotal = total + deliveryCost;
+      alert(`To pay KSh ${total}:\n\n1. Open M-Pesa\n2. Lipa na M-Pesa > Buy Goods\n3. Till Number: 3446190\n4. Amount: ${total}\n5. Confirm with PIN\n\nThen send us a WhatsApp confirmation.`);
 
-      document.getElementById('delivery-cost').textContent = `Delivery from ${baseTown} to ${address} is ${distanceInKm}km, cost: KSh ${deliveryCost}. Total payable: KSh ${grandTotal}`;
-
-      alert(`To pay KSh ${grandTotal}:
-1. Go to M-Pesa
-2. Lipa na M-Pesa > Buy Goods
-3. Till Number: 3446190
-4. Amount: ${grandTotal}`);
-
-      const whatsappMsg = `Hi, I have paid KSh ${grandTotal} for my Kanto Closet order. Name: ${name}, Delivery: ${address} from ${baseTown}`;
-      window.open(`https://wa.me/254740113715?text=${encodeURIComponent(whatsappMsg)}`);
+      const message = `Hi Kanto Closet, I have paid KSh ${total} for my order.\nName: ${name}\nAddress: ${address}`;
+      window.open(`https://wa.me/254740113715?text=${encodeURIComponent(message)}`, '_blank');
     }
   </script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY_HERE&libraries=places"></script>
 </body>
 </html>
