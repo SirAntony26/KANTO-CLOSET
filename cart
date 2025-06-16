@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KANTO CLOSET</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+    h2 { text-align: center; }
+    form, .cart, .products { max-width: 600px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, textarea, button { width: 100%; padding: 10px; margin-top: 10px; border-radius: 6px; border: 1px solid #ccc; }
+    button { background-color: green; color: white; border: none; cursor: pointer; }
+    .product-item { border:1px solid #ccc;padding:10px;margin-bottom:10px;border-radius:8px }
+    .product-item img { width:100%;max-height:200px;object-fit:cover }
+    .cart-item { border-bottom: 1px solid #ccc; padding: 10px 0; }
+    .total { font-weight: bold; font-size: 18px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Welcome to KANTO CLOSET</h2>
+
+  <!-- Product Display -->
+  <div class="products" id="productDisplay"></div>
+
+  <!-- Add Product Form -->
+  <form id="productForm">
+    <h2>Add New Product</h2>
+    <input type="text" id="productName" placeholder="Product Name" required>
+    <input type="number" id="productPrice" placeholder="Price (KES)" required>
+    <input type="text" id="productImage" placeholder="Image URL" required>
+    <textarea id="productDesc" placeholder="Description (optional)"></textarea>
+    <button type="submit">Add Product</button>
+  </form>
+
+  <!-- Checkout Section -->
+  <div class="cart">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <p class="total" id="totalAmount"></p>
+    <button onclick="placeOrder()">Place Order via WhatsApp</button>
+  </div>
+
+  <script>
+    // Display Products
+    window.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('productDisplay');
+      const products = JSON.parse(localStorage.getItem('products') || '[]');
+      container.innerHTML = products.map((prod, index) => `
+        <div class="product-item">
+          <img src="${prod.image}" alt="${prod.name}">
+          <h3>${prod.name}</h3>
+          <p>KES ${prod.price}</p>
+          <p>${prod.desc || ''}</p>
+          <button onclick="addToCart(${index})">Add to Cart</button>
+        </div>
+      `).join('');
+
+      displayCart();
+    });
+
+    // Add to Cart
+    function addToCart(index) {
+      const products = JSON.parse(localStorage.getItem('products') || '[]');
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart.push(products[index]);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Added to cart!');
+      displayCart();
+    }
+
+    // Display Cart
+    function displayCart() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const cartContainer = document.getElementById('cartItems');
+      let total = 0;
+      cartContainer.innerHTML = cart.map(item => {
+        total += parseFloat(item.price);
+        return `<div class='cart-item'>
+                  <strong>${item.name}</strong><br>
+                  Price: KES ${item.price}
+                </div>`;
+      }).join('');
+      document.getElementById('totalAmount').textContent = `Total: KES ${total}`;
+    }
+
+    // Place Order
+    function placeOrder() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      let total = 0;
+      const message = encodeURIComponent(`Hello! I'd like to order:\n\n` + cart.map(i => {
+        total += parseFloat(i.price);
+        return `- ${i.name} (KES ${i.price})`;
+      }).join('\n') + `\n\nTotal: KES ${total}`);
+      window.location.href = `https://wa.me/254740113715?text=${message}`;
+    }
+
+    // Handle Add Product Form
+    document.getElementById('productForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('productName').value;
+      const price = document.getElementById('productPrice').value;
+      const image = document.getElementById('productImage').value;
+      const desc = document.getElementById('productDesc').value;
+
+      const product = { name, price, image, desc };
+      const products = JSON.parse(localStorage.getItem('products') || '[]');
+      products.push(product);
+      localStorage.setItem('products', JSON.stringify(products));
+      alert('Product added!');
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>
