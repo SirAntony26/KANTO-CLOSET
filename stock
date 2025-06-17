@@ -1,0 +1,18 @@
+<section style="padding: 20px; background-color: #f9f9f9;">
+  <h2 style="text-align: center; font-size: 24px;">🔥 Latest Arrivals</h2>
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-top: 20px;">
+    
+    <!-- Item 1: NFL Jersey -->
+    <div style="width: 220px; text-align: center; background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+      <img src="images/nfl_jersey_14.jpeg" alt="NFL Jersey #14" style="width: 100%; border-radius: 10px;">
+      <p style="margin-top: 10px;"><strong>NFL Jersey #14</strong><br><span style="text-decoration: line-through; color: red;">KSh 1500</span> <strong style="color: green;">KSh 1450</strong></p>
+    </div>
+
+    <!-- Item 2: Dodgers Jersey -->
+    <div style="width: 220px; text-align: center; background: #fff; padding: 10px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+      <img src="images/dodgers_jersey.jpeg" alt="Dodgers Blue Jersey" style="width: 100%; border-radius: 10px;">
+      <p style="margin-top: 10px;"><strong>Dodgers Blue Jersey</strong><br><span style="text-decoration: line-through; color: red;">KSh 1500</span> <strong style="color: green;">KSh 1450</strong></p>
+    </div>
+
+  </div>
+</section>
